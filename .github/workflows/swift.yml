@@ -1,0 +1,13 @@
+name: Swift package
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test on macOS
+        run: swift test
+      - name: Build for iOS Simulator
+        run: xcodebuild -scheme TimelineScrubber -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
